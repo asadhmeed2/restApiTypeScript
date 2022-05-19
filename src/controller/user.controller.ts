@@ -1,8 +1,10 @@
 import {Request,Response} from 'express';
+import { TypeOf } from 'zod';
 
-import { CreateUserInput } from '../schema/user.schema';
+import { createUserSchema } from '../schema/user.schema';
 import { createUser } from '../service/user.service';
 import { sendEmail } from '../utils/mailer';
+
 export async function createUserHandler(req: Request<{},{},CreateUserInput>, res: Response){
     const body = req.body;
 
@@ -29,3 +31,6 @@ export async function createUserHandler(req: Request<{},{},CreateUserInput>, res
         })
     }
 }
+
+
+export type CreateUserInput = TypeOf<typeof createUserSchema>["body"]
