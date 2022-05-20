@@ -12,7 +12,7 @@ export async function createUserHandler(req: Request<{},{},CreateUserInput>, res
             from: 'test@example.com',
             to:user.email,
             subject: "Please verify your account",
-            text: `verification conde ${user.verifictionCode}. Id : ${user._id}`,
+            text: `verification conde ${user.verificationCode}. Id : ${user._id}`,
         });
         return res.status(200).json({
             message: 'User successfully created',
