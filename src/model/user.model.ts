@@ -36,7 +36,7 @@ export class User {
 
     
     @prop({required: true,default:()=>nanoid()})
-    verifictionCode: string;
+    verificationCode: string;
 
     
     @prop()
