@@ -1,6 +1,6 @@
 import {Request,Response} from 'express';
 import { nanoid } from 'nanoid';
-import { CreateUserInput, ForgotPasswordInput, VerifyUserInput } from '../schema/user.schema';
+import { CreateUserInput, ForgotPasswordInput, ResetPasswordInput, VerifyUserInput } from '../schema/user.schema';
 import { createUser, findUserByEmail, findUserById } from '../service/user.service';
 import log from '../utils/logger';
 import { sendEmail } from '../utils/mailer';
@@ -100,5 +100,27 @@ export async function forgotPasswordHandler(req: Request<{},{},ForgotPasswordInp
     log.debug(`Password reset email sent to ${email}`)
 
     return res.json(message)
+
+}
+
+
+export async function resetPasswordHandeler(req: Request<ResetPasswordInput['parames'],{},ResetPasswordInput['body']>, res: Response){
+    const {id ,passwordResetCode} =req.params;
+    const { password } =req.body;
+
+
+    const user =await findUserById(id);
+
+    if(!user || !user.passwordResetCode || user.passwordResetCode !== passwordResetCode){
+        return res.status(400).json({
+            message: 'Could not reset user password'
+        })
+    }
+    user.passwordResetCode = null;
+    user.password =password;
+
+    await user.save();
+
+    return res.json({message: "Successfully updated user password"})
 
 }
