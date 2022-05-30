@@ -50,6 +50,7 @@ export class User {
     async validatePassword(this:DocumentType<User>,candidatePasswrd:string){
         try{ 
             const verified = await argon2.verify(this.password,candidatePasswrd)
+            return verified;
         }catch(e){
             log.error(e,"Could not validate Password");
             return false;

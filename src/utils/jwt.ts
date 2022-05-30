@@ -10,7 +10,7 @@ export function signJwt(object:object, keyName: 'accessTokentPrivatekey'| 'refre
     })
 }
 
-export function verifyJwt<T>(token:string,keyName:"accessTokenPublicKey"| "refreshTokenPublicKey") {
+export function verifyJwt<T>(token:string,keyName:"accessTokenPublicKey"| "refreshTokenPublicKey") :T|null {
 
     const publicKey = Buffer.from( config.get<string>(keyName),'base64').toString('ascii');
 
