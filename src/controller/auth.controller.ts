@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { CreateSessionInput } from "../schema/auth.schema";
+import { signAccessToken, signRefreshToken } from "../service/auth.service";
 import { findUserByEmail } from "../service/user.service";
 
 export async function createSessionHandler(req: Request<{},{},CreateSessionInput>,res:Response){
@@ -21,6 +22,14 @@ export async function createSessionHandler(req: Request<{},{},CreateSessionInput
     const isValid = await user.validatePassword(password);
 
     if(!isValid){
-        return res.json(message);
+        return res.json({message});
     }
+
+    const accessToken = signAccessToken(user);
+
+    const refreshToken = await signRefreshToken({
+        userId:user._id
+    })
+
+
 }

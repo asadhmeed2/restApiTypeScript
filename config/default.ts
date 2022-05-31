@@ -8,7 +8,7 @@ export default {
         host:'smtp.ethereal.email',
         port:587,
         secure: false,
-        accessTokentPrivateDey: process.env.SECRITE_TOKEN,
+        accessTokenPrivateDey: process.env.SECRITE_TOKEN,
         refreshTokenPrivateKey: process.env.REFRESH_TOKEN,
         accessTokenPublicKey: process.env.PUBLIC_SECRITE_TOKEN,
         refreshTokenPublicKey: process.env.PUBLIC_REFRESH_TOKEN
