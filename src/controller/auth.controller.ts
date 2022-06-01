@@ -31,5 +31,6 @@ export async function createSessionHandler(req: Request<{},{},CreateSessionInput
         userId:user._id
     })
 
+    return res.json({accessToken:accessToken, refreshToken:refreshToken})
 
 }
