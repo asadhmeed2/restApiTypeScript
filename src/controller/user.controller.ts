@@ -124,3 +124,9 @@ export async function resetPasswordHandeler(req: Request<ResetPasswordInput['par
     return res.json({message: "Successfully updated user password"})
 
 }
+
+
+export async function getCurrentUsreHandler( req: Request,res: Response){
+
+    return res.json({user: res.locals.user})
+}

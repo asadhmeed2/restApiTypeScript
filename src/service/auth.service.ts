@@ -1,5 +1,4 @@
 import { DocumentType } from "@typegoose/typegoose";
-import { createSessionHandler } from "../controller/auth.controller";
 import SessionModel from "../model/session.model";
 import { User } from "../model/user.model";
 import { signJwt } from "../utils/jwt";
@@ -13,6 +12,11 @@ export async function signRefreshToken({userId}:{userId:string}){
     const session = await createSession({
         userId
     })
+
+    const refreshToken = signJwt({session: session._id},
+        "refreshTokenPrivateKey")
+
+    return refreshToken;
 }
 
 
